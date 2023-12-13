@@ -1,32 +1,37 @@
-import {
-  AppBar,
-  Box,
-  Typography,
-  Toolbar,
-  Container,
-  Button,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { AppBar, Box, Toolbar, Container, Button } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+
   return (
     <Container>
       <Box sx={{ display: "flex" }}>
         <AppBar component="nav">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/">CRUD App</Link>
-            </Typography>
-            <Box>
+            <Box sx={{ flexGrow: 1 }}>
               <Button
+                variant="text"
+                color="warning"
+                sx={{ fontSize: "1.7rem", textTransform: "capitalize" }}
                 component={Link}
-                to="/create"
-                variant="contained"
-                color="success"
+                to="/"
               >
-                Create
+                CRUD App
               </Button>
             </Box>
+            {location.pathname === "/" ? (
+              <Box>
+                <Button
+                  component={Link}
+                  to="/create"
+                  variant="contained"
+                  color="success"
+                >
+                  Create
+                </Button>
+              </Box>
+            ) : null}
           </Toolbar>
         </AppBar>
       </Box>
