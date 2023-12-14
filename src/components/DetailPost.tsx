@@ -17,6 +17,8 @@ import { get } from "../util/http";
 import { API_URL } from "../api/url";
 import { BlogPostType } from "./Posts";
 
+import { usePostIds } from "../post-context";
+
 const DetailPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,6 +26,8 @@ const DetailPost = () => {
   const [post, setPost] = useState<BlogPostType>();
   const [error, setError] = useState<string>();
   const [openDialogUpdate, setOpenDialogUpdate] = useState(false);
+
+  const { addId } = usePostIds();
 
   const handleGetPost = async () => {
     setIsFetching(true);
@@ -76,10 +80,20 @@ const DetailPost = () => {
     setOpenDialogUpdate(false);
   };
 
-  const handleDeletePost = () => {
-    fetch(`${API_URL}posts/${id}`, {
-      method: "DELETE",
-    });
+  const handleDeletePost = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`${API_URL}posts/${id}`, {
+        method: "DELETE",
+      });
+
+      await response.json();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    addId(post?.id);
     navigate("/");
   };
 

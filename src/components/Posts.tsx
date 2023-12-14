@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Post from "./Post";
 import Loading from "./UI/Loading";
 import ErrorMessage from "./ErrorMessage";
 import { get } from "../util/http";
 import { API_URL } from "../api/url";
 import { Box } from "@mui/material";
+import { usePostIds } from "../post-context";
 
 export type BlogPostType = {
   id: number;
@@ -18,12 +19,14 @@ const Posts = () => {
   const [posts, setPosts] = useState<BlogPostType[]>();
   const [error, setError] = useState<string>();
 
+  const { idsDeleted } = usePostIds();
+
   const handleGetPosts = async () => {
     setIsFetching(true);
     try {
       const data = await get<BlogPostType[]>(`${API_URL}posts`);
 
-      setPosts(data);
+      setPosts(data.filter((post) => !idsDeleted.includes(post.id)));
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
