@@ -94,37 +94,55 @@ const DetailPost = () => {
       ) : (
         <Paper sx={{ p: "20px", mt: "30px" }}>
           <Typography
-            variant="h2"
+            variant="h4"
+            component="h2"
             color="initial"
             sx={{ textTransform: "uppercase", mb: "15px" }}
           >
             {post?.title}
           </Typography>
-          <Typography variant="subtitle1" color="initial">
+          <Typography
+            variant="subtitle1"
+            color="initial"
+            sx={{ textTransform: "capitalize" }}
+          >
             {post?.body}
           </Typography>
-          <Box sx={{ textAlign: "right", mt: "20px" }}>
-            <Button
-              variant="contained"
-              type="button"
-              color="primary"
-              sx={{ mr: "10px" }}
-              onClick={handleOpenUpdateDialog}
-            >
-              Update
-            </Button>
-            <Button
-              variant="contained"
-              type="button"
-              color="secondary"
-              onClick={handleDeletePost}
-            >
-              Delete
-            </Button>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "10px",
+              justifyContent: "end",
+              mt: "20px",
+            }}
+          >
+            <Box>
+              <Button
+                variant="contained"
+                type="button"
+                color="primary"
+                sx={{ mr: "10px" }}
+                onClick={handleOpenUpdateDialog}
+              >
+                Update
+              </Button>
+            </Box>
+            <Box>
+              <form onSubmit={handleDeletePost}>
+                <Button variant="contained" type="submit" color="secondary">
+                  Delete
+                </Button>
+              </form>
+            </Box>
           </Box>
         </Paper>
       )}
-      <Dialog open={openDialogUpdate} onClose={handleCloseUpdateDialog}>
+      <Dialog
+        open={openDialogUpdate}
+        onClose={handleCloseUpdateDialog}
+        fullWidth={true}
+        maxWidth={"md"}
+      >
         <DialogTitle>Update post</DialogTitle>
         <form onSubmit={handleUpdatePost}>
           <DialogContent>
@@ -137,7 +155,11 @@ const DetailPost = () => {
               fullWidth
               variant="standard"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setPost({ ...post, title: e.target.value })
+                setPost((prevState) => {
+                  return prevState
+                    ? { ...prevState, title: e.target.value }
+                    : prevState;
+                })
               }
               value={post?.title}
             />
@@ -150,7 +172,11 @@ const DetailPost = () => {
               fullWidth
               variant="standard"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setPost({ ...post, body: e.target.value })
+                setPost((prevState) => {
+                  return prevState
+                    ? { ...prevState, body: e.target.value }
+                    : prevState;
+                })
               }
               value={post?.body}
             />

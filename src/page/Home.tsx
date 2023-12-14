@@ -1,4 +1,4 @@
-import { Container, Paper, Typography } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 import Posts from "../components/Posts";
 const Home = () => {
   return (
@@ -7,9 +7,7 @@ const Home = () => {
         Home
       </Typography>
 
-      <Paper>
-        <Posts />
-      </Paper>
+      <Posts />
     </Container>
   );
 };

@@ -4,6 +4,7 @@ import Loading from "./UI/Loading";
 import ErrorMessage from "./ErrorMessage";
 import { get } from "../util/http";
 import { API_URL } from "../api/url";
+import { Box } from "@mui/material";
 
 export type BlogPostType = {
   id: number;
@@ -41,7 +42,7 @@ const Posts = () => {
   }
 
   return (
-    <div>
+    <Box>
       {isFetching ? (
         <Loading />
       ) : (
@@ -55,7 +56,7 @@ const Posts = () => {
           />
         ))
       )}
-    </div>
+    </Box>
   );
 };
 

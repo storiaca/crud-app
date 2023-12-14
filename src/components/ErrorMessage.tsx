@@ -7,7 +7,7 @@ type ErrorMessageProps = {
 export default function ErrorMessage({ text }: ErrorMessageProps) {
   return (
     <Container sx={{ pt: "5rem" }}>
-      <Typography variant="h3" color="secondary" gutterBottom>
+      <Typography variant="h4" component="h2" color="secondary" gutterBottom>
         Error Message
       </Typography>
       <Typography variant="subtitle1" color="initial">

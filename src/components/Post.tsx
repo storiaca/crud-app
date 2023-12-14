@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
+
 type SinglePostType = {
   id: number;
   title: string;
@@ -8,15 +9,27 @@ type SinglePostType = {
 
 const Post = ({ id, title, body }: SinglePostType) => {
   return (
-    <Box>
-      <Typography variant="h3" color="initial">
-        <Link to={`details/${id}`}>{title}</Link>
-      </Typography>
+    <Paper sx={{ my: "20px", p: "10px 15px" }}>
+      <Link to={`details/${id}`} style={{ textDecoration: "none" }}>
+        <Typography
+          variant="h4"
+          component="h2"
+          color="initial"
+          gutterBottom
+          sx={{ textTransform: "uppercase" }}
+        >
+          {title}
+        </Typography>
 
-      <Typography variant="subtitle1" color="initial">
-        {body}
-      </Typography>
-    </Box>
+        <Typography
+          variant="subtitle1"
+          color="initial"
+          sx={{ textTransform: "capitalize" }}
+        >
+          {body}
+        </Typography>
+      </Link>
+    </Paper>
   );
 };
 
